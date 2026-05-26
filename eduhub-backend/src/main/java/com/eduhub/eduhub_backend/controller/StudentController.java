@@ -3,29 +3,50 @@ package com.eduhub.eduhub_backend.controller;
 import com.eduhub.eduhub_backend.component.Student;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class StudentController {
-    @GetMapping("Student")
-    public ResponseEntity<?> getStudent() {
-        Student student = new Student(1, "Saai", "S");
+    @GetMapping("student")
+    public ResponseEntity<Student> getStudent(){
+        Student student=new Student(1,"Ram","K");
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @GetMapping("student")
-    public ResponseEntity<List<Student>> getStudents() {
-        List<Student> students = new ArrayList<>();
-        students.add(new Student(1, "Saai", "S"));
-        students.add(new Student(2, "Sai", "S"));
-        students.add(new Student(3, "Saa", "S"));
-        students.add(new Student(4, "raai", "S"));
-        return new ResponseEntity<>(students, HttpStatus.OK);
+    @GetMapping("students")
+    public ResponseEntity<List<Student>> getStudents(){
+        List<Student> studentList =new ArrayList<>();
+        studentList.add(new Student(1,"sam","T"));
+        studentList.add(new Student(2,"savi","K"));
+        studentList.add(new Student(3,"sagu","L"));
+        studentList.add(new Student(4,"saj","R"));
+        return new ResponseEntity<>(studentList,HttpStatus.OK);
+    }
 
+    @GetMapping("{id}/{firstName}/{lastName}")
+    public ResponseEntity<Student> studentPathVariable(
+            @PathVariable("id") int studentId,
+            @PathVariable("firstName") String firstName,
+            @PathVariable("lastName") String lastName){
+
+        Student student = new Student(studentId, firstName, lastName);
+
+        return ResponseEntity.ok(student);
+    }
+    @GetMapping("query")
+    public ResponseEntity<Student> StudentRepositoryQuery(@RequestParam int id, @RequestParam String firstName, @RequestParam String lastName){
+      Student student = new Student(id, firstName, lastName);
+      return ResponseEntity.ok(student);
+    }
+    @PostMapping("create")
+    public ResponseEntity<Student> createStudent(@RequestBody Student student){
+        System.out.print(student.getId());
+        System.out.print(student.getFirstName());
+        System.out.print(student.getLastName());
+        return ResponseEntity.ok(student);
 
     }
 }
