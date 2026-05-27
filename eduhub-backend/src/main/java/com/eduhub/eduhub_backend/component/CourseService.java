@@ -69,7 +69,6 @@ public class CourseService {
     public String deleteCourse(String code){
 
         for(Course c : courses){
-
             if(c.getCourseCode()
                     .equalsIgnoreCase(code)){
 
