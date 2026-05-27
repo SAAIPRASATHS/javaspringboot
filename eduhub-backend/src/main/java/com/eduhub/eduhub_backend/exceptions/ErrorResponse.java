@@ -1,4 +1,4 @@
-package execptions;
+package com.eduhub.eduhub_backend.exceptions;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +14,8 @@ public class ErrorResponse {
         this.message = message;
         this.error = error;
         this.path = path;
-
+    }
+    public LocalDateTime getTimestamp(){
+        return timestamp;
     }
 }
